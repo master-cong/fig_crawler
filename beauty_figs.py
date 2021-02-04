@@ -99,7 +99,7 @@ def get_figs(page_url):
             break
         page.encoding = 'gbk'
         soup = bb(page.text, 'lxml')
-        dir_name_patten = re.search(r'(\S+[\]])(_*)(\W*)', soup.title.text)  # 从title提取相册名
+        dir_name_patten = re.search(r'([\S*\]*]\S+\s*\S+[\]])(_*)(\W*)', soup.title.text)  # 从title提取相册名
         if dir_name_patten:
             dir_name = dir_name_patten.group(1)
         else:
