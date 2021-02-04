@@ -43,7 +43,9 @@ def get_response(target_url, useproxy=False, retry_counter=0):
                 get_response(target_url, useproxy=True, retry_counter=retry_counter)
 
 
-main_domain = "https://qqk19.com"
+main_domain = "https://qq5lk.com/"
+# https://yxpjw.net/
+# https://15hn.net
 
 
 def bianli_pages(offset, fig_type=5):
@@ -97,7 +99,11 @@ def get_figs(page_url):
             break
         page.encoding = 'gbk'
         soup = bb(page.text, 'lxml')
-        dir_name = soup.title.text.split("P]")[0]
+        dir_name_patten = re.search(r'(\S+[\]])(_*)(\W*)', soup.title.text)  # 从title提取相册名
+        if dir_name_patten:
+            dir_name = dir_name_patten.group(1)
+        else:
+            dir_name = soup.title.text
         dir_name = re.sub(r'[/:*?"<>|]', '-', dir_name)  # 验证是否包含不合法字符，并替换
         xiangce_dir = os.path.join(FIG_BASE, dir_name)
         if not os.path.exists(xiangce_dir):
